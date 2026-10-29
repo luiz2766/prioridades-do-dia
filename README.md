@@ -14,6 +14,7 @@ Baseado no sistema de design **Executive Precision** (Stitch).
 - **Ícones:** lucide-react
 - **Notificações:** Sonner (Toasts acessíveis com aria-live)
 - **Backend & Auth:** Supabase (PostgreSQL, Row Level Security, Realtime, Auth por e-mail/senha com `@supabase/ssr`)
+- **Status:** Produção pronta para deploy Vercel
 - **Deploy:** Vercel
 
 ---
