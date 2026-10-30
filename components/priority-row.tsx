@@ -4,7 +4,7 @@ import React from "react";
 import { Priority } from "@/types/priority";
 import { StatusBadge } from "./status-badge";
 import { ReasonBadge } from "./reason-badge";
-import { formatTimeShort } from "@/lib/date";
+import { formatTimeShort, formatDateShort } from "@/lib/date";
 import { Check } from "lucide-react";
 
 interface PriorityRowProps {
@@ -83,7 +83,14 @@ export function PriorityRow({ priority, onToggleAccepted }: PriorityRowProps) {
         <StatusBadge status={priority.status} />
       </td>
 
-      {/* Coluna 7: Horário de Criação */}
+      {/* Coluna 7: Data de Inclusão */}
+      <td className="py-3.5 px-4 font-mono text-xs text-slate-600 text-center whitespace-nowrap w-28">
+        <span className="bg-slate-100 px-2 py-0.5 rounded text-slate-700">
+          {formatDateShort(priority.created_at)}
+        </span>
+      </td>
+
+      {/* Coluna 8: Horário de Criação */}
       <td className="py-3.5 px-4 font-mono text-xs text-slate-500 text-right whitespace-nowrap w-24">
         {formatTimeShort(priority.created_at)}
       </td>

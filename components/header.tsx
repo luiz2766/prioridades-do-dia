@@ -2,12 +2,29 @@
 
 import React, { useEffect, useState } from "react";
 import { formatTodayHeader } from "@/lib/date";
-import { Calendar, LogOut, User as UserIcon, Layers } from "lucide-react";
+import {
+  Calendar,
+  LogOut,
+  User as UserIcon,
+  Layers,
+  CheckSquare,
+  BarChart3,
+} from "lucide-react";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-export function Header() {
+interface HeaderProps {
+  activeTab?: "operacao" | "dashboard";
+  onTabChange?: (tab: "operacao" | "dashboard") => void;
+  pendingCount?: number;
+}
+
+export function Header({
+  activeTab = "operacao",
+  onTabChange,
+  pendingCount = 0,
+}: HeaderProps) {
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [todayText, setTodayText] = useState<string>("");
   const router = useRouter();
@@ -62,10 +79,46 @@ export function Header() {
           </div>
         </div>
 
+        {/* Abas Centrais de Navegação: Operação vs Dashboard */}
+        {onTabChange && (
+          <nav className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl shadow-xs">
+            <button
+              type="button"
+              onClick={() => onTabChange("operacao")}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all min-h-[34px] cursor-pointer ${
+                activeTab === "operacao"
+                  ? "bg-white text-slate-950 shadow-xs"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <CheckSquare className="w-3.5 h-3.5" />
+              <span>Operação</span>
+              {pendingCount > 0 && (
+                <span className="font-mono text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.2 rounded-full font-bold">
+                  {pendingCount}
+                </span>
+              )}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => onTabChange("dashboard")}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all min-h-[34px] cursor-pointer ${
+                activeTab === "dashboard"
+                  ? "bg-white text-slate-950 shadow-xs"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <BarChart3 className="w-3.5 h-3.5" />
+              <span>Dashboard</span>
+            </button>
+          </nav>
+        )}
+
         {/* Data e Dados do Usuário */}
         <div className="flex items-center gap-2 sm:gap-4">
           {/* Badge de Data de Hoje */}
-          <div className="hidden md:flex items-center gap-2 bg-slate-100/80 text-slate-700 px-3 py-1.5 rounded-full border border-slate-200/60 text-xs font-medium">
+          <div className="hidden xl:flex items-center gap-2 bg-slate-100/80 text-slate-700 px-3 py-1.5 rounded-full border border-slate-200/60 text-xs font-medium">
             <Calendar className="w-3.5 h-3.5 text-slate-500" />
             <span className="font-mono text-[11px]">{todayText || "Carregando data..."}</span>
           </div>

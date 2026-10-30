@@ -4,7 +4,7 @@ import React from "react";
 import { Priority } from "@/types/priority";
 import { StatusBadge } from "./status-badge";
 import { ReasonBadge } from "./reason-badge";
-import { formatTimeShort } from "@/lib/date";
+import { formatTimeShort, formatDateShort } from "@/lib/date";
 import { Check } from "lucide-react";
 
 interface PriorityCardProps {
@@ -28,9 +28,11 @@ export function PriorityCard({ priority, onToggleAccepted }: PriorityCardProps) 
         <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-200/80">
           {priority.customer_code}
         </span>
-        <span className="font-mono text-xs text-slate-500">
-          {formatTimeShort(priority.created_at)}
-        </span>
+        <div className="flex items-center gap-1.5 font-mono text-xs text-slate-500">
+          <span>{formatDateShort(priority.created_at)}</span>
+          <span>•</span>
+          <span>{formatTimeShort(priority.created_at)}</span>
+        </div>
       </div>
 
       {/* Nome do Cliente */}

@@ -16,6 +16,7 @@ const COMMON_REASONS = [
   "Negociação em andamento",
   "Inadimplência",
   "Reclamação",
+  "Exclusivo",
   "Outro",
 ];
 

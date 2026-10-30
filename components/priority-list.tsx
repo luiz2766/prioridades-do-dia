@@ -120,6 +120,9 @@ export function PriorityList({
                     <th scope="col" className="py-3 px-4 w-32">
                       Status
                     </th>
+                    <th scope="col" className="py-3 px-4 w-28 text-center">
+                      Data
+                    </th>
                     <th scope="col" className="py-3 px-4 w-24 text-right">
                       Horário
                     </th>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Zap, Handshake, AlertTriangle, MessageSquare, Tag } from "lucide-react";
+import { Zap, Handshake, AlertTriangle, MessageSquare, Tag, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ReasonBadgeProps {
@@ -61,6 +61,20 @@ export function ReasonBadge({ reason, className }: ReasonBadgeProps) {
         )}
       >
         <MessageSquare className="w-3 h-3 text-orange-600" />
+        {reason}
+      </span>
+    );
+  }
+
+  if (normalized.includes("exclusivo")) {
+    return (
+      <span
+        className={cn(
+          "inline-flex items-center gap-1.5 font-medium text-xs px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-900 border border-purple-200",
+          className
+        )}
+      >
+        <Star className="w-3 h-3 text-purple-600 fill-purple-500" />
         {reason}
       </span>
     );

@@ -43,6 +43,23 @@ export function formatTodayHeader(): string {
 }
 
 /**
+ * Formata um timestamp ISO para o formato de data curta "DD/MM/AAAA"
+ */
+export function formatDateShort(isoString: string): string {
+  try {
+    const date = new Date(isoString);
+    return new Intl.DateTimeFormat("pt-BR", {
+      timeZone: "America/Maceio",
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    }).format(date);
+  } catch {
+    return "--/--/----";
+  }
+}
+
+/**
  * Formata um timestamp ISO para o formato de horário curto "HH:mm"
  */
 export function formatTimeShort(isoString: string): string {
@@ -56,5 +73,23 @@ export function formatTimeShort(isoString: string): string {
     }).format(date);
   } catch {
     return "--:--";
+  }
+}
+
+/**
+ * Formata um tempo relativo amigável (ex: "Há 12 min", "Há 2 horas", "Agora")
+ */
+export function formatRelativeTime(isoString: string): string {
+  try {
+    const diffMs = Date.now() - new Date(isoString).getTime();
+    const diffMinutes = Math.floor(diffMs / 60000);
+    if (diffMinutes < 1) return "Agora";
+    if (diffMinutes === 1) return "Há 1 min";
+    if (diffMinutes < 60) return `Há ${diffMinutes} min`;
+    const diffHours = Math.floor(diffMinutes / 60);
+    if (diffHours === 1) return "Há 1 h";
+    return `Há ${diffHours} h`;
+  } catch {
+    return "";
   }
 }
